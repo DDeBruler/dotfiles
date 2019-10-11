@@ -13,7 +13,7 @@ Plugin 'scrooloose/nerdtree'                                  " file system expl
 Plugin 'Xuyuanp/nerdtree-git-plugin'                          "   with git flags plugin
 Plugin 'tpope/vim-fugitive'                                   " git command hooks (Ggrep, Gblame, etc)
 Plugin 'octref/rootignore'                                    " respect .gitignore when searching
-Plugin 'wincent/command-t'                                    " fuzzy file search
+Plugin 'ctrlpvim/ctrlp.vim'                                   " fuzzy file search
 Plugin 'haya14busa/incsearch.vim'                             " incremental text search
 Plugin 'haya14busa/incsearch-fuzzy.vim'                       "   with fuzzy matching support
 " Finish with Vundle handling
@@ -37,12 +37,11 @@ filetype plugin indent on                                     " detect filetype,
 autocmd FileType vue syntax sync fromstart                    " force full filetype sync for vue components
 let g:vue_disable_pre_processors=1                            " avoid heavy preprocessor checks on mixed-language vue components
 let g:CommandTTraverseSCM = 'pwd'                             " let RootIgnore affect command-t
-autocmd VimEnter * CommandTLoad                               " initialize fuzzy file search immediately
-autocmd VimEnter * redraw!                                    " clear out any lingering screen noise
 
 " keyboard shortcuts
 let mapleader = " "                                           " space bar to start combos
 nnoremap <leader>c maggVG"*y`a                                " copy entire file to OS buffer
+nnoremap <leader>t :CtrlP                                     " launch fuzzy file search
 map <C-n> :NERDTreeToggle<CR>                                 " toggle file explorer pane with ctrl+N
 " because I can't pick my pinky up quickly
 nnoremap :Q :q

@@ -1,52 +1,55 @@
-#!/bin/bash
+#!/usr/local/bin/fish
 
 #Setup script for Dotfiles
-echo -e "\u001b[32;1m Setting up Dotfiles...\u001b[0m"
+echo -e "Setting up Dotfiles..."
 
-echo -e " \u001b[37;1m\u001b[4mSelect an option:\u001b[0m"
-echo -e "  \u001b[34;1m (1) Setup symlinks \u001b[0m"
-echo -e "  \u001b[34;1m (2) Install vim plugins \u001b[0m"
-echo -e "  \u001b[34;1m (2) Undo symlinks \u001b[0m"
-echo -e "  \u001b[31;1m (0) Exit \u001b[0m"
-echo -en "\u001b[32;1m ==> \u001b[0m"
+echo -e " Select an option:"
+echo -e "  (1) Setup symlinks"
+echo -e "  (2) Install vim plugins"
+echo -e "  (3) Install iTerm2 Integration"
+echo -e "  (4) Undo symlinks"
+echo -e "  (0) Exit"
 
-read -r option
+read -P "==> " -l option
 
-case $option in
-  "1")echo -e "\u001b[36;1m Adding symlinks...\u001b[0m"
-      mv ~/.vimrc ~/.vimrc.old
-      mv ~/.ssh/config ~/.ssh/config.old
-      mv ~/.config/fish ~/.config/fish.old
-      mv ~/.gitconfig ~/.gitconfig.old
+switch $option
+  case "1"
+    echo -e " Adding symlinks..."
+    touch ~/.env
+    mv ~/.vimrc ~/.vimrc.old
+    mv ~/.ssh/config ~/.ssh/config.old
+    mv ~/.config/fish ~/.config/fish.old
+    mv ~/.gitconfig ~/.gitconfig.old
 
-      ln -sfnv "$PWD/vimrc" ~/.vimrc
-      ln -sfnv "$PWD/sshconfig" ~/.ssh/config
-      ln -sfnv "$PWD/fishconfig" ~/.config/fish
-      ln -sfnv "$PWD/gitconfig" ~/.gitconfig
+    ln -sfnv "$PWD/vimrc" ~/.vimrc
+    ln -sfnv "$PWD/sshconfig" ~/.ssh/config
+    ln -sfnv "$PWD/fishconfig" ~/.config/fish
+    ln -sfnv "$PWD/gitconfig" ~/.gitconfig
+  case "2"
+    echo -e " Installing vim plugins... "
+    mkdir -p ~/.vim/swapfiles
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    vim +PluginUpdate +qall
+  case "3"
+    echo -e " Installing iTerm2 shell integration... "
+    curl -L https://iterm2.com/shell_integration/fish -o ~/.iterm2_shell_integration.fish
+  case "4"
+    echo -e " Removing symlinks..."
+    unlink ~/.vimrc
+    unlink ~/.ssh/config
+    unlink ~/.config/fish
+    unlink ~/.gitconfig
 
-  "2")echo -e "\u001b[7m Installing vim plugins... \u001b[0m"
-      git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-      vim +PluginUpdate +qall
-      ;;
-
-  "3")echo -e "\u001b[36;1m Adding symlinks...\u001b[0m"
-      unlink ~/.vimrc
-      unlink ~/.ssh/config
-      unlink ~/.config/fish
-      unlink ~/.gitconfig
-
-      mv ~/.vimrc.old ~/.vimrc
-      mv ~/.ssh/config.old ~/.ssh/config
-      mv ~/.config/fish.old ~/.config/fish
-      mv ~/.gitconfig.old ~/.gitconfig
-
-  "0")echo -e "\u001b[32;1m Bye! \u001b[0m"
-      exit 0
-      ;;
-
-  *)echo -e "\u001b[31;1m Invalid option entered! \u001b[0m"
-      exit 1
-      ;;
-esac
+    mv ~/.vimrc.old ~/.vimrc
+    mv ~/.ssh/config.old ~/.ssh/config
+    mv ~/.config/fish.old ~/.config/fish
+    mv ~/.gitconfig.old ~/.gitconfig
+  case "0"
+    echo -e " Bye! "
+    exit 0
+  case '*'
+    echo -e " Invalid option entered! "
+    exit 1
+end
 
 exit 0

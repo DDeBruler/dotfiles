@@ -4,8 +4,10 @@ for variable_pair in (cat {$HOME}/.env)
   set -x (string split '=' $variable_pair)
 end
 
-source /usr/local/share/chruby/chruby.fish
-source /usr/local/share/chruby/auto.fish
+if test -d /usr/local/share/chruby
+  source /usr/local/share/chruby/chruby.fish
+  source /usr/local/share/chruby/auto.fish
+end
 
 for util_file in $HOME/.config/fish/utilities/*.fish
   source $util_file

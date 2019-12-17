@@ -20,11 +20,13 @@ switch $option
     mv ~/.ssh/config ~/.ssh/config.old
     mv ~/.config/fish ~/.config/fish.old
     mv ~/.gitconfig ~/.gitconfig.old
+    mv ~/.asdfrc ~/.asdfrc.old
 
     ln -sfnv "$PWD/vimrc" ~/.vimrc
     ln -sfnv "$PWD/sshconfig" ~/.ssh/config
     ln -sfnv "$PWD/fishconfig" ~/.config/fish
     ln -sfnv "$PWD/gitconfig" ~/.gitconfig
+    ln -sfnv "$PWD/asdfrc" ~/.asdfrc
   case "2"
     echo -e " Installing vim plugins... "
     mkdir -p ~/.vim/swapfiles
@@ -39,11 +41,13 @@ switch $option
     unlink ~/.ssh/config
     unlink ~/.config/fish
     unlink ~/.gitconfig
+    unlink ~/.asdfrc
 
     mv ~/.vimrc.old ~/.vimrc
     mv ~/.ssh/config.old ~/.ssh/config
     mv ~/.config/fish.old ~/.config/fish
     mv ~/.gitconfig.old ~/.gitconfig
+    mv ~/.asdfrc.old ~/.asdfrc
   case "0"
     echo -e " Bye! "
     exit 0

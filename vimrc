@@ -36,13 +36,15 @@ syntax on                                                     " enable syntax hi
 filetype plugin indent on                                     " detect filetype, enable plugins and indentation by filetype
 autocmd FileType vue syntax sync fromstart                    " force full filetype sync for vue components
 let g:vue_disable_pre_processors=1                            " avoid heavy preprocessor checks on mixed-language vue components
-let g:CommandTTraverseSCM = 'pwd'                             " let RootIgnore affect command-t
+let g:ctrlp_max_files = 0                                     " no limit on number of files to search
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']  " use git to list files for search
 
 " keyboard shortcuts
 let mapleader = " "                                           " space bar to start combos
 nnoremap <leader>c maggVG"*y`a                                " copy entire file to OS buffer
-nnoremap <leader>t :CtrlP                                     " launch fuzzy file search
 map <C-n> :NERDTreeToggle<CR>                                 " toggle file explorer pane with ctrl+N
+let g:ctrlp_map = '<leader>t'                                 " launch fuzzy file search
+" nnoremap <leader>t :CtrlP<ENTER>
 " because I can't pick my pinky up quickly
 nnoremap :Q :q
 nnoremap :W :w

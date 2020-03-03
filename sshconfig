@@ -32,6 +32,9 @@ Host nuggets
   Hostname 52.1.73.74
   ForwardAgent yes
 
+Host nugapp
+  ProxyCommand ssh -q nuggets nc web-timed-1 22
+
 Host nugstaging
   Hostname 3.218.192.94
   ForwardAgent yes

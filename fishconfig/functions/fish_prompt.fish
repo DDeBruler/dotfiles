@@ -17,7 +17,9 @@ function _git_info_string
   end
   if [ (_git_branch_name) ]
       set -l git_branch (set_color -o blue)(_git_branch_name)
-      iterm2_set_user_var gitBranch (_git_branch_name)
+      if type -q iterm2_set_user_var
+        iterm2_set_user_var gitBranch (_git_branch_name)
+      end
       if [ (_is_git_dirty) ]
           for i in (git branch -qv --no-color | string match -r '\*' | cut -d' ' -f4- | cut -d] -f1 | tr , \n)\
 (git status --porcelain | cut -c 1-2 | uniq)

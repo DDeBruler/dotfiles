@@ -13,17 +13,9 @@ Host clockwise
 Host cw
   ProxyCommand ssh -q clockwise nc scheduler-timed-1 22
 
-Host clockold
-  HostName 3.82.144.152
- # LocalForward 2222 encryptedclockwiseproductionrds.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432
-
-Host cwapp
-  HostName 35.173.244.74
-
 Host cwstaging
   Hostname 52.44.177.193
   ForwardAgent Yes
-  LocalForward 2222 cwstagingencrypted.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432
 
 Host cwstapp
   ProxyCommand ssh -q cwstaging nc scheduler-timed-1 22
@@ -39,25 +31,11 @@ Host nugstaging
   Hostname 3.218.192.94
   ForwardAgent yes
 
-Host db
-  HostName 34.204.5.47
-  LocalForward 5000 clockwiseproductionreplica.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432
-
-Host dbstaging
-  Hostname 52.90.85.185
-  LocalForward 6000 cwstagingreplica.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432
-  LocalForward 6001 clockwisemetricsstaging.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432
+Host nugstapp
+  ProxyCommand ssh -q nugstaging nc web-timed-1 22
 
 Host etl
   Hostname 52.21.156.65
 
 Host etlstaging
   Hostname 52.2.224.242
-
-Host metrics
-  Hostname 52.87.102.61
-  LocalForward 2222 metrics.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432
-
-Host metstaging
-  Hostname 52.90.85.185
-  LocalForward 2222 clockwisemetricsstaging.cmhhhulwwalh.us-east-1.rds.amazonaws.com:5432

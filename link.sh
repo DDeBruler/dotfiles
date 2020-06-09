@@ -1,4 +1,4 @@
-#!/usr/local/bin/fish
+#!/usr/bin/env fish
 
 #Setup script for Dotfiles
 echo -e "Setting up Dotfiles..."

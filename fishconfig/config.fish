@@ -4,7 +4,9 @@ for variable_pair in (cat {$HOME}/.env)
   set -x (string split '=' $variable_pair)
 end
 
-if test -e /usr/local/opt/asdf/asdf.fish
+if test -e ~/.asdf/asdf.fish
+  source ~/.asdf/asdf.fish
+else if test -e /usr/local/opt/asdf/asdf.fish
   source /usr/local/opt/asdf/asdf.fish
 else if test -d /usr/local/share/chruby
   source /usr/local/share/chruby/chruby.fish

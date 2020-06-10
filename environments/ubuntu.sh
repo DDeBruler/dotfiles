@@ -26,12 +26,12 @@ cp -r diff-so-fancy/lib/ $HOME/bin/
 rm -rf diff-so-fancy
 
 # slack
-wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb -O slack.deb
+curl "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb" -o slack.deb
 sudo apt install -y ./slack.deb
 rm slack.deb
 
 # terraform
-wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip -O terraform.zip
+curl "https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip" -o terraform.zip
 unzip terraform.zip -d ~/bin
 rm terraform.zip
 
@@ -42,3 +42,10 @@ sudo apt update && sudo apt install -y yarn
 
 # postgres
 sudo -y postgres createuser -s dan
+
+# AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+rm -rf ./aws
+rm awscliv2.zip

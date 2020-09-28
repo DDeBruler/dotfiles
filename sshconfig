@@ -7,28 +7,28 @@ Host *
   User dan
 
 Host clockwise
-  HostName 35.173.97.164
+  HostName 54.235.242.154
   ForwardAgent Yes
 
 Host cw
   ProxyCommand ssh -q clockwise nc scheduler-timed-1 22
 
 Host cwstaging
-  Hostname 52.44.177.193
+  Hostname 54.167.172.113
   ForwardAgent Yes
 
 Host cwstapp
   ProxyCommand ssh -q cwstaging nc scheduler-timed-1 22
 
 Host nuggets
-  Hostname 52.1.73.74
+  Hostname 54.167.172.113
   ForwardAgent yes
 
 Host nugapp
   ProxyCommand ssh -q nuggets nc web-timed-1 22
 
 Host nugstaging
-  Hostname 3.218.192.94
+  Hostname 54.167.172.113
   ForwardAgent yes
 
 Host nugstapp

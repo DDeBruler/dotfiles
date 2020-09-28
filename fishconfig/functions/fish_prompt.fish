@@ -1,11 +1,23 @@
 function fish_prompt
   set git_info (_git_info_string)
-  printf '%s%s%s' (set_color white) (_git_info_string) '=≻ '
+  printf '%s%s%s%s%s' (set_color yellow) (echo $PWD | sed -e "s|^$HOME|~|") (set_color white) (_git_info_string) '=≻ '
 end
 
 
 function minimal_fish_prompt --description 'Write out the prompt'
   printf "=≻ "
+end
+
+function verbose_fish_prompt
+	set laststatus $status
+  set_color -b black
+  set git_info (_git_info_string)
+  printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (echo $PWD | sed -e "s|^$HOME|~|") (set_color white) $git_info (set_color white) '❱' (set_color white)
+  if test $laststatus -eq 0
+      printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
+  else
+      printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
+  end
 end
 
 function _git_info_string
@@ -46,17 +58,5 @@ function _git_info_string
           set git_status (set_color green):
       end
       echo "(git$git_status$git_branch"(set_color white)")"
-  end
-end
-
-function verbose_fish_prompt
-	set laststatus $status
-  set_color -b black
-  set git_info (_git_info_string)
-  printf '%s%s%s%s%s%s%s%s%s%s%s%s%s' (set_color -o white) '❰' (set_color green) $USER (set_color white) '❙' (set_color yellow) (echo $PWD | sed -e "s|^$HOME|~|") (set_color white) $git_info (set_color white) '❱' (set_color white)
-  if test $laststatus -eq 0
-      printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
-  else
-      printf "%s✘%s≻%s " (set_color -o red) (set_color white) (set_color normal)
   end
 end

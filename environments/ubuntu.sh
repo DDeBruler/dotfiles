@@ -43,13 +43,6 @@ if ! command -v terraform &> /dev/null; then
   sudo apt-get update && sudo apt-get install terraform
 fi
 
-# yarn
-if ! command -v terraform &> /dev/null; then
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  sudo apt update && sudo apt install -y yarn
-fi
-
 # postgres
 sudo -y postgres createuser -s dan
 

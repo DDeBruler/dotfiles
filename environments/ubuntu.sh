@@ -1,5 +1,7 @@
 #!/bin/bash
 
+### INSTALL PACKAGES
+
 mkdir -p $HOME/bin
 
 # stuff I use
@@ -43,9 +45,6 @@ if ! command -v terraform &> /dev/null; then
   sudo apt-get update && sudo apt-get install terraform
 fi
 
-# postgres
-sudo -y postgres createuser -s dan
-
 # AWS CLI
 if ! command -v aws &> /dev/null; then
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -61,3 +60,10 @@ if ! command -v zoom &> /dev/null; then
   sudo apt install -y ./zoom.deb
   rm zoom.deb
 fi
+
+
+### CONFIGURE ENVIRONMENT
+
+# postgres
+sudo -u postgres createuser -s $(whoami)
+

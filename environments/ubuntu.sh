@@ -13,7 +13,14 @@ libssl-dev libreadline-dev zlib1g-dev
 # other work packages
 sudo apt install -y postgresql postgresql-contrib libpq-dev redis libxml2-dev
 
-# asdf
+# screen recordings
+if ! command -v peek &> /dev/null; then
+  sudo add-apt-repository -y ppa:peek-developers/stable
+  sudo apt update
+  sudo apt install -y peek
+fi
+
+# ruby/node/yarn version management
 if ! command -v asdf &> /dev/null; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.8
   $HOME/.asdf/asdf.sh
@@ -61,6 +68,12 @@ if ! command -v zoom &> /dev/null; then
   rm zoom.deb
 fi
 
+# PgAdmin
+if ! test e /usr/pgadmin4; then
+  curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+  sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+  sudo apt install -y pgadmin4-desktop
+fi
 
 ### CONFIGURE ENVIRONMENT
 

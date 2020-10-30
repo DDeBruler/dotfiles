@@ -21,14 +21,14 @@ Host cwstapp
   ProxyCommand ssh -q cwstaging nc scheduler-timed-1 22
 
 Host nuggets
-  Hostname 54.167.172.113
+  Hostname 54.197.70.128
   ForwardAgent yes
 
 Host nugapp
   ProxyCommand ssh -q nuggets nc web-timed-1 22
 
 Host nugstaging
-  Hostname 54.167.172.113
+  Hostname 18.204.109.3
   ForwardAgent yes
 
 Host nugstapp

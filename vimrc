@@ -5,9 +5,6 @@ filetype off                                                  " required for Vun
 set rtp+=~/.vim/bundle/Vundle.vim                             " include Vundle in the runtime path
 call vundle#begin()
 " List out actual desired plugins
-Plugin 'posva/vim-vue'                                        " syntax highlighting for Vue components
-Plugin 'kchmck/vim-coffee-script'                             " syntax highlighting for Coffeescript
-Plugin 'slim-template/vim-slim.git'                           " syntax highlighting for Slim templates
 Plugin 'leafgarland/typescript-vim'                           " syntax highlighting for Typescript
 Plugin 'scrooloose/nerdtree'                                  " file system explorer
 Plugin 'Xuyuanp/nerdtree-git-plugin'                          "   with git flags plugin
@@ -16,6 +13,7 @@ Plugin 'octref/rootignore'                                    " respect .gitigno
 Plugin 'ctrlpvim/ctrlp.vim'                                   " fuzzy file search
 Plugin 'haya14busa/incsearch.vim'                             " incremental text search
 Plugin 'haya14busa/incsearch-fuzzy.vim'                       "   with fuzzy matching support
+Plugin 'preservim/nerdcommenter'                              " smart commenting
 " Finish with Vundle handling
 call vundle#end()
 
@@ -38,43 +36,78 @@ autocmd FileType vue syntax sync fromstart                    " force full filet
 let g:vue_disable_pre_processors=1                            " avoid heavy preprocessor checks on mixed-language vue components
 let g:ctrlp_max_files = 0                                     " no limit on number of files to search
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']  " use git to list files for search
+setlocal nomodeline                                           " don't accidentally set a mode line based on janky file contents
 
 " keyboard shortcuts
 let mapleader = " "                                           " space bar to start combos
-nnoremap <leader>c maggVG"*y`a                                " copy entire file to OS buffer
 map <C-n> :NERDTreeToggle<CR>                                 " toggle file explorer pane with ctrl+N
 let g:ctrlp_map = '<leader>t'                                 " launch fuzzy file search
-" nnoremap <leader>t :CtrlP<ENTER>
-" because I can't pick my pinky up quickly
-nnoremap :Q :q
-nnoremap :W :w
-" because I want to stay in Visual Line mode when I indent
-vnoremap > >gv
-vnoremap < <gv
+
+augroup lazy_keystrokes
+  autocmd!
+
+  " because I can't pick my pinky up quickly
+  nnoremap :Q :q
+  nnoremap :W :w
+
+  " because I want to stay in Visual Line mode when I indent
+  vnoremap > >gv
+  vnoremap < <gv
+
+  " Ensure that arrow keys don't get escaped
+  nmap <esc>OA <Up>
+  nmap <esc>OB <Down>
+  nmap <esc>OC <Right>
+  nmap <esc>OD <Left>
+augroup END
+
+augroup copy_paste_tools
+  autocmd!
+
+  " Copy the whole file to OS Buffer
+  nnoremap <leader>c maggVG"+y`a
+
+  " Copy what's under visual to OS Buffer
+  vnoremap <leader>c "+y
+augroup END
 
 " Split pane behavior/navigation
-nnoremap <C-J> <C-W><C-J>   " ctrl+J to move down
-nnoremap <C-K> <C-W><C-K>   " ctrl+K to move up
-nnoremap <C-L> <C-W><C-L>   " ctrl+L to move right
-nnoremap <C-H> <C-W><C-H>   " ctrl+H to move left
-set splitbelow              " open new horizontal split below the current pane
-set splitright              " open new vertical split to the right of the current pane
+augroup split_panes
+  autocmd!
 
-" incremental text search setup
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map z/ <Plug>(incsearch-fuzzyspell-/)
-map z? <Plug>(incsearch-fuzzyspell-?)
-map zg/ <Plug>(incsearch-fuzzyspell-stay)
-set hlsearch                                " highlight matches
-let g:incsearch#auto_nohlsearch = 1         " turn off highlighting after search-related motions
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+  nnoremap <C-J> <C-W><C-J>   " ctrl+J to move down
+  nnoremap <C-K> <C-W><C-K>   " ctrl+K to move up
+  nnoremap <C-L> <C-W><C-L>   " ctrl+L to move right
+  nnoremap <C-H> <C-W><C-H>   " ctrl+H to move left
+  set splitbelow              " open new horizontal split below the current pane
+  set splitright              " open new vertical split to the right of the current pane
+augroup END
+
+augroup incremental_search_setup
+  autocmd!
+
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+  map z/ <Plug>(incsearch-fuzzyspell-/)
+  map z? <Plug>(incsearch-fuzzyspell-?)
+  map zg/ <Plug>(incsearch-fuzzyspell-stay)
+  set hlsearch                                " highlight matches
+  let g:incsearch#auto_nohlsearch = 1         " turn off highlighting after search-related motions
+  map n  <Plug>(incsearch-nohl-n)
+  map N  <Plug>(incsearch-nohl-N)
+  map *  <Plug>(incsearch-nohl-*)
+  map #  <Plug>(incsearch-nohl-#)
+  map g* <Plug>(incsearch-nohl-g*)
+  map g# <Plug>(incsearch-nohl-g#)
+augroup END
+
+augroup smart_commenting_setup
+  autocmd!
+
+  let g:NERDCreateDefaultMappings = 1   " Create default mappings by file type
+  let g:NERDSpaceDelims = 1             " Add spaces after comment delimiters by default
+augroup END
 
 " Cleanup files on write
 augroup file_cleanup
@@ -92,13 +125,3 @@ augroup file_cleanup
   endfunction
   autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 augroup END
-
-" Ensure that arrow keys don't get escaped
-nmap <esc>OA <Up>
-nmap <esc>OB <Down>
-nmap <esc>OC <Right>
-nmap <esc>OD <Left>
-
-" highlight current line so I can find my cursor
-" set cursorline
-" hi cursorline ctermbg=DarkGrey ctermfg=LightGrey cterm=none

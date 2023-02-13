@@ -39,6 +39,7 @@ set -l execs annotate      \
              puma          \
              rackup        \
              rainbows      \
+             rails         \
              rake          \
              rspec         \
              rubocop       \

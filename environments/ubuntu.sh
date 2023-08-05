@@ -5,7 +5,7 @@
 mkdir -p $HOME/bin
 
 # stuff I use
-sudo apt install -y guake fish vim-gtk chromium-browser xclip gnome-tweak-tool jq curl nginx screen
+sudo apt install -y guake fish vim-gtk xclip jq curl nginx
 
 # ruby dependencies
 libssl-dev libreadline-dev zlib1g-dev
@@ -40,16 +40,9 @@ fi
 
 # slack
 if ! command -v slack &> /dev/null; then
-  curl "https://downloads.slack-edge.com/linux_releases/slack-desktop-4.9.1-amd64.deb" -o slack.deb
+  curl "https://downloads.slack-edge.com/releases/linux/4.29.149/prod/x64/slack-desktop-4.29.149-amd64.deb" -o slack.deb
   sudo apt install -y ./slack.deb
   rm slack.deb
-fi
-
-# terraform
-if ! command -v terraform &> /dev/null; then
-  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-  sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-  sudo apt-get update && sudo apt-get install terraform
 fi
 
 # AWS CLI
@@ -80,6 +73,11 @@ if ! command -v 1password &> /dev/null; then
   sudo apt-key --keyring /usr/share/keyrings/1password.gpg adv --keyserver keyserver.ubuntu.com --recv-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22
   echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password.gpg] https://downloads.1password.com/linux/debian edge main' | sudo tee /etc/apt/sources.list.d/1password.list
   sudo apt update && sudo apt install 1password
+fi
+
+# Heroku
+if ! command -v heroku &> /dev/null; then
+  curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 fi
 
 ### CONFIGURE ENVIRONMENT

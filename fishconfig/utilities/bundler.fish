@@ -41,6 +41,7 @@ set -l execs annotate      \
              rainbows      \
              rails         \
              rake          \
+             rails         \
              rspec         \
              rubocop       \
              shotgun       \

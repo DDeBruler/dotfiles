@@ -8,7 +8,6 @@ call vundle#begin()
 Plugin 'leafgarland/typescript-vim'                           " syntax highlighting for Typescript
 Plugin 'scrooloose/nerdtree'                                  " file system explorer
 Plugin 'Xuyuanp/nerdtree-git-plugin'                          "   with git flags plugin
-Plugin 'tpope/vim-fugitive'                                   " git command hooks (Ggrep, Gblame, etc)
 Plugin 'octref/rootignore'                                    " respect .gitignore when searching
 Plugin 'ctrlpvim/ctrlp.vim'                                   " fuzzy file search
 Plugin 'haya14busa/incsearch.vim'                             " incremental text search

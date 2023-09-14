@@ -22,3 +22,5 @@
 	default = current
 [advice]
 	detachedHead = false
+[init]
+	defaultBranch = main

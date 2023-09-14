@@ -1,4 +1,4 @@
-function rdm -w "rake db:migrate" 
+function rdm -w "rake db:migrate"
   if test -e Gemfile -a -d db
     migrate_databases
   else
@@ -12,4 +12,3 @@ function migrate_databases
   echo -e "\nMigrating test database"
   env RAILS_ENV=test bundle exec rake db:migrate
 end
-

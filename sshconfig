@@ -4,38 +4,5 @@ Host *
   UseKeychain yes
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/id_ed25519
   User dan
-
-Host clockwise
-  HostName 54.235.242.154
-  ForwardAgent Yes
-
-Host cw
-  ProxyCommand ssh -q clockwise nc scheduler-timed-1 22
-
-Host cwstaging
-  Hostname 54.167.172.113
-  ForwardAgent Yes
-
-Host cwstapp
-  ProxyCommand ssh -q cwstaging nc scheduler-timed-1 22
-
-Host nuggets
-  Hostname 54.197.70.128
-  ForwardAgent yes
-
-Host nugapp
-  ProxyCommand ssh -q nuggets nc web-timed-1 22
-
-Host nugstaging
-  Hostname 18.204.109.3
-  ForwardAgent yes
-
-Host nugstapp
-  ProxyCommand ssh -q nugstaging nc web-timed-1 22
-
-Host etl
-  Hostname 52.21.156.65
-
-Host etlstaging
-  Hostname 52.2.224.242

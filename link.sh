@@ -21,12 +21,14 @@ switch $option
     mv ~/.config/fish ~/.config/fish.old
     mv ~/.gitconfig ~/.gitconfig.old
     mv ~/.asdfrc ~/.asdfrc.old
+    mv ~/.sqliterc ~/.sqliterc.old
 
     ln -sfnv "$PWD/vimrc" ~/.vimrc
     ln -sfnv "$PWD/sshconfig" ~/.ssh/config
     ln -sfnv "$PWD/fishconfig" ~/.config/fish
     ln -sfnv "$PWD/gitconfig" ~/.gitconfig
     ln -sfnv "$PWD/asdfrc" ~/.asdfrc
+    ln -sfnv "$PWD/sqliterc" ~/.sqliterc
   case "2"
     echo -e " Installing vim plugins... "
     mkdir -p ~/.vim/swapfiles

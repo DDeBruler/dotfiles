@@ -5,4 +5,14 @@ Host *
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_rsa
   IdentityFile ~/.ssh/id_ed25519
-  User dan
+
+Host mirth-bastion
+  User ec2-user
+  IdentityFile ~/.ssh/mirth_connect
+  HostName ec2-18-190-156-177.us-east-2.compute.amazonaws.com
+
+Host mirth-engine
+  User ubuntu
+  HostName ip-10-23-2-131.us-east-2.compute.internal
+  IdentityFile ~/.ssh/mirth_connect
+  ProxyJump mirth-bastion
